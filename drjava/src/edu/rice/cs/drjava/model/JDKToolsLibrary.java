@@ -107,6 +107,8 @@ public class JDKToolsLibrary {
   public static String adapterForCompiler(JavaVersion.FullVersion version) {
     switch (version.majorVersion()) {
       case FUTURE: return "edu.rice.cs.drjava.model.compiler.Javac170Compiler";
+      case JAVA_10: return "edu.rice.cs.drjava.model.compiler.Javac170Compiler";
+      case JAVA_9: return "edu.rice.cs.drjava.model.compiler.Javac170Compiler";
       case JAVA_8: return "edu.rice.cs.drjava.model.compiler.Javac170Compiler";
       case JAVA_7: return "edu.rice.cs.drjava.model.compiler.Javac170Compiler";
       case JAVA_6: {
@@ -124,6 +126,8 @@ public class JDKToolsLibrary {
   public static String adapterForDebugger(JavaVersion.FullVersion version) {
     switch (version.majorVersion()) {
       case FUTURE:
+      case JAVA_10:
+      case JAVA_9:
       case JAVA_8:
       case JAVA_7:
       case JAVA_6:

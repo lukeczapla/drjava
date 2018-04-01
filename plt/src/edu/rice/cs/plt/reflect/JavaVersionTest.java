@@ -507,6 +507,5 @@ public class JavaVersionTest extends TestCase {
     assertEquals("Java 6.0", JAVA_6.fullVersion().toString());
     assertEquals("Java 7.0", JAVA_7.fullVersion().toString());
     assertEquals("Java 8.0", JAVA_8.fullVersion().toString());
-    assertEquals("Java >8.0", FUTURE.fullVersion().toString());
   }  
 }

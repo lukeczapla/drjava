@@ -48,7 +48,9 @@ public enum JavaVersion {
   JAVA_6 { public String versionString() { return "6"; } },
   JAVA_7 { public String versionString() { return "7"; } },
   JAVA_8 { public String versionString() { return "8"; } },
-  FUTURE { public String versionString() { return ">8"; } };
+  JAVA_9 { public String versionString() { return "9"; } },
+  JAVA_10 { public String versionString() { return "10"; } },
+  FUTURE { public String versionString() { return "FUTURE"; } };
   
   /** The currently-available Java version, based on the {@code "java.class.version"} property.  Ideally, a {@code true}
     * result  for {@code JavaVersion.CURRENT.supports(v)} implies that all APIs associated with that version are
@@ -114,8 +116,10 @@ public enum JavaVersion {
       case 50: return JAVA_6;
       case 51: return JAVA_7;
       case 52: return JAVA_8;
+      case 53: return JAVA_9;
+      case 54: return JAVA_10;
     }
-    return (major > 51) ? FUTURE : UNRECOGNIZED;
+    return (major > 54) ? FUTURE : UNRECOGNIZED;
   }
   
   /**
@@ -175,7 +179,13 @@ public enum JavaVersion {
     
     /** Strip trailing ".jdk" off of java_version strings from post Java 6 Oracle JVMs for Mac OS X. */
     if (java_version.endsWith(".jdk")) java_version = java_version.substring(0, java_version.length() - 4);
-    
+//    System.out.println("DATA\n" + java_version + "\n" + java_runtime_name + "\n" + java_vm_vendor);
+
+    if (java_version.equals("10")) {
+//      System.out.println("We found Java 10");
+      return new FullVersion(JavaVersion.JAVA_10, 0, 0, ReleaseType.STABLE, null, VendorType.ORACLE, "oracle", location);
+    }
+
     if (vendor == VendorType.UNKNOWN) {
       if (java_runtime_name.toLowerCase().contains("openjdk")) {
         vendor = VendorType.OPENJDK;
@@ -225,7 +235,9 @@ public enum JavaVersion {
           case 6: version = JAVA_6; break;
           case 7: version = JAVA_7; break;
           case 8: version = JAVA_8; break;
-          default: if (feature > 8) { version = FUTURE; } break;
+          case 9: version = JAVA_9; break;
+          case 10: version = JAVA_10; break;
+          default: if (feature > 10) { version = FUTURE; } break;
         }
         return new FullVersion(version, 0, 0, type, typeString, vendor, vendorString, location);
       }
@@ -265,7 +277,9 @@ public enum JavaVersion {
           case 6: version = JAVA_6; break;
           case 7: version = JAVA_7; break;
           case 8: version = JAVA_8; break;
-          default: if (feature > 8) { version = FUTURE; } break;
+          case 9: version = JAVA_9; break;
+          case 10: version = JAVA_10; break;
+          default: if (feature > 10) { version = FUTURE; } break;
         }
       }
       
